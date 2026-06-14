@@ -1,0 +1,31 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import Home from "./pages/Home";
+import NotFound from "./pages/NotFound";
+import { Toaster } from "./components/ui/toaster";
+
+const App = () => {
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "dark";
+
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
+  return (
+    <>
+      <Toaster />
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+};
+
+export default App;
